@@ -8,7 +8,7 @@
           </div>
           <div
             class="cart-item"
-            v-for="item in filteredCartItems"
+            v-for="item in cartItems"
             :key="item.Id"
           >
             <div class="cart-item-body">
@@ -18,7 +18,7 @@
               <div class="info">
                 <input type="number" v-model.number="item.Amount" />
                 <span class="cost">{{ item.Price }} ден.</span>
-                <button>delete item</button>
+                <button @click="deleteItemFromCart(item)">delete item</button>
               </div>
             </div>
           </div>
@@ -46,23 +46,26 @@
 </template>
 
 <script>
+import cartItemsStorage from "../storage/CartItemsStore";
+
 export default {
-  props: ["cartItems", "closeCart"],
+  name: "ShoppingCart",
   data() {
-    return {};
+    return {
+      cartItems: [],
+    };
   },
-  computed: {
-    filteredCartItems() {
-      let result = this.cartItems.filter((e) => e.AddedToCart);
-      return result;
-    },
+  mounted() {
+    this.cartItems = cartItemsStorage.getCartItemsList();
   },
   methods: {
+      deleteItemFromCart(item) {
+          cartItemsStorage.removeItemFromCart(item)
+      },
     sum() {
-      let result = this.cartItems.filter((e) => e.AddedToCart);
       let sum = 0;
 
-      result.forEach((element) => {
+      this.cartItems.forEach((element) => {
         let amPr = null;
 
         if (element.Amount) {

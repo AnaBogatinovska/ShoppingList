@@ -14,13 +14,12 @@
         </div>
       </div>
     </header>
-    <ShoppingCart :cartItems="listItems" v-if="isOpenCart" @cancelCart='closeCart'/>
+    <ShoppingCart v-if="isOpenCart" @cancelCart='closeCart'/>
   </div>
 </template>
 
 <script>
 import ShoppingCart from "../components/ShoppingCart.vue";
-import itemsStorage from "../storage/Store";
 
 export default {
   name: "Header",
@@ -34,7 +33,7 @@ export default {
     };
   },
   mounted() {
-    this.listItems = itemsStorage.getListItems();
+   
   },
   methods: {
     closeCart() {

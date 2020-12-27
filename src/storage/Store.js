@@ -15,7 +15,6 @@ class Items {
   pushItem(item) {
       // set Id to item
       let result = [];
-      console.log(this.items)
       this.items.forEach(i => {
           result.push(i.Id)
       })
@@ -37,8 +36,7 @@ class Items {
 
   removeItem(item) {
      let idx =  this.items.findIndex(i => i.Id === item.Id)
-
-    this.items.splice(this.items[idx], 1)
+    this.items.splice(idx, 1)
     this.setListItems()
   }
 
@@ -46,7 +44,6 @@ class Items {
     let idx = this.items.findIndex(i => i.Id === item.Id)
     this.items[idx].Amount = amount
     this.items[idx].AddedToCart = true;
-    console.log('eeee',this.items)
     this.setListItems()
   }
 

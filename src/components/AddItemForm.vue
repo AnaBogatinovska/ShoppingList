@@ -37,6 +37,9 @@ export default {
   mounted() {},
   methods: {
     onSubmit() {
+      if(this.Item.Price < 0) {
+        alert('Please enter valid Price')
+      }
       this.$emit("onSubmitForm", this.Item);
     },
   },

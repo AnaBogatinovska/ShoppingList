@@ -27,7 +27,7 @@
               <div class="add-btn">
                 <button
                   class="add-cart-btn"
-                  @click="addToCart(item, item.Amount)"
+                  @click="addItemToCart(item)"
                   v-if="!item.AddedToCart"
                 >
                   Add to Cart
@@ -50,6 +50,7 @@
 
 <script>
 import itemsStorage from "../storage/Store";
+import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
   name: "ShoppingList",
@@ -62,10 +63,11 @@ export default {
   methods: {
     deleteItem(item) {
       itemsStorage.removeItem(item);
+      cartItemsStorage.removeItemFromCart(item)
     },
 
-    addToCart(item, amount) {
-      itemsStorage.addToCartAndAmount(item, amount);
+    addItemToCart(item) {
+      cartItemsStorage.addToCart(item);
     },
 
     removeFromCart(item) {
