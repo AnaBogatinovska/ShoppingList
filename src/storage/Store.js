@@ -49,6 +49,12 @@ class Items {
     console.log('eeee',this.items)
     this.setListItems()
   }
+
+  removeFromCart(item){
+    let idx = this.items.findIndex(i => i.Id === item.Id)
+    this.items[idx].AddedToCart = false
+    this.setListItems()
+  }
 }
 
 export default new Items();

@@ -1,22 +1,47 @@
 <template>
-  <header>
-    <div class="container">
-      <div class="inner-content">
-        <div class="header-wrapper">
-          <h1>SHOPPING LIST</h1>
-          <div>
-            <!-- <i class="fab fa-accusoft"></i> -->
-            <span class="material-icons cart"> shopping_cart </span>
-            <!-- <img src="../assets/cart.png" alt="cart" width="50" height="50"> -->
+  <div>
+    <header>
+      <div class="container">
+        <div class="inner-content">
+          <div class="header-wrapper">
+            <h1>SHOPPING LIST</h1>
+            <div>
+              <span @click="isOpenCart = true" class="material-icons cart">
+                shopping_cart
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
+    <ShoppingCart :cartItems="listItems" v-if="isOpenCart" @cancelCart='closeCart'/>
+  </div>
 </template>
 
 <script>
-export default {};
+import ShoppingCart from "../components/ShoppingCart.vue";
+import itemsStorage from "../storage/Store";
+
+export default {
+  name: "Header",
+  components: {
+    ShoppingCart,
+  },
+  data() {
+    return {
+      listItems: [],
+      isOpenCart: false,
+    };
+  },
+  mounted() {
+    this.listItems = itemsStorage.getListItems();
+  },
+  methods: {
+    closeCart() {
+      this.isOpenCart = false
+    }
+  },
+};
 </script>
 
 <style scoped>

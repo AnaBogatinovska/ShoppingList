@@ -4,7 +4,6 @@
      <button class="add-item" @click="isOpenForm=true">add item</button>
      <ShoppingList :shoppingItems="listItems"/>
      <AddItemForm  v-if="isOpenForm" @cancelForm='isOpenForm = false' @onSubmitForm="onSubmit"/>
-    <ShoppingCart :cartItems="listItems"/>
   </div>
 </template>
 
@@ -12,7 +11,6 @@
 import AddItemForm from '../components/AddItemForm.vue'
 import Header from '../components/Header'
 import ShoppingList from '../components/ShoppingList.vue'
-import ShoppingCart from '../components/ShoppingCart.vue'
 import itemsStorage from '../storage/Store'
 
 export default {
@@ -20,7 +18,6 @@ export default {
     components: {
         Header,
         ShoppingList,
-        ShoppingCart,
         AddItemForm
     },
     data() {
@@ -36,6 +33,10 @@ export default {
       onSubmit(item) {
         itemsStorage.pushItem(item)
         this.isOpenForm = false
+      },
+      test() {
+        console.log('in')
+        this.isOpenCart = true
       }
     }
 }

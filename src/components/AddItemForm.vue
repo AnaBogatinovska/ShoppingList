@@ -29,7 +29,7 @@ export default {
         Id: 1,
         Name: "",
         Price: 0,
-        Amount: 0,
+        Amount: 1,
         AddedToCart: false,
       },
     };
@@ -57,7 +57,6 @@ export default {
   background: #27273c;
   border-radius: 5px;
   margin: 0 auto;
-  /* display: flex; */
   padding: 16px;
   margin-top: 50px;
 }
