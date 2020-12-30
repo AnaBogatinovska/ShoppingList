@@ -11,7 +11,7 @@
 import AddItemForm from '../components/AddItemForm.vue'
 import Header from '../components/Header'
 import ShoppingList from '../components/ShoppingList.vue'
-import itemsStorage from '../storage/Store'
+import itemsStorage from '../storage/ListStore'
 
 export default {
     name: 'LandingPage',

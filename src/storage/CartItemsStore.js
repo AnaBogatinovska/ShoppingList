@@ -1,25 +1,30 @@
+import Vue from 'vue'
+
 class CartItems {
   cartItems = [];
 
   getCartItemsList() {
     if (localStorage.getItem("cartItemss") !== null) {
-      this.cartItems = JSON.parse(localStorage.getItem("cartItemss"));
+      let result = JSON.parse(localStorage.getItem("cartItemss"));
+      Vue.set(this.cartItems, result)
     }
     return this.cartItems;
   }
 
   setCartItemsList() {
-    console.log("in setCart", this.cartItems);
-
     localStorage.setItem("cartItemss", JSON.stringify(this.cartItems));
   }
 
   addToCart(item) {
-    let idx = this.cartItems.findIndex((i) => i.Id === item.Id);
+    let idx = this.cartItems.findIndex((i) => i.itemId === item.Id);
     if (idx !== -1) {
-      this.cartItems[idx].Amount += item.Amount;
+      this.cartItems[idx].qty += item.Amount;
     } else {
-      this.cartItems.push(item);
+      this.cartItems.push({
+        qty: item.Amount,
+        itemId: item.Id,
+        item: item,
+      });
     }
     this.setCartItemsList();
   }

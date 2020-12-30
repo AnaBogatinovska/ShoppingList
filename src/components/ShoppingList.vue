@@ -4,7 +4,7 @@
       <div class="box-container">
         <div class="box-body">
           <div class="list-item" v-for="item in shoppingItems" :key="item.Id">
-            <div class="item-body" :class="{ added: item.AddedToCart }">
+            <div class="item-body" :class="{ added: isItemAdded(item) }">
               <div class="delete-item">
                 <span
                   class="material-icons del-item-icon"
@@ -16,13 +16,21 @@
               <h3>{{ item.Name }}</h3>
               <div class="middle">
                 <span class="cost">{{ item.Price }} ДЕН.</span>
-                <input
-                  type="number"
-                  required
-                  :class="{ disabled: item.AddedToCart }"
-                  :disabled="item.AddedToCart"
-                  v-model.number="item.Amount"
-                />
+                <div>
+                  <input
+                    type="button"
+                    value="-"
+                    @click="qtyMinus(item)"
+                    class="qty-minus"
+                  />
+                  <input type="number" min="1" v-model.number="item.Amount" />
+                  <input
+                    type="button"
+                    value="+"
+                    @click="item.Amount++"
+                    class="qty-plus"
+                  />
+                </div>
               </div>
               <div class="add-btn">
                 <button
@@ -31,13 +39,6 @@
                   v-if="!item.AddedToCart"
                 >
                   Add to Cart
-                </button>
-                <button
-                  class="remove-from-cart"
-                  @click="removeFromCart(item)"
-                  v-if="item.AddedToCart"
-                >
-                  Remove from Cart
                 </button>
               </div>
             </div>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import itemsStorage from "../storage/Store";
+import itemsStorage from "../storage/ListStore";
 import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
@@ -57,21 +58,28 @@ export default {
   props: ["shoppingItems"],
   data() {
     return {
-      amount: 0,
+      isDelBoxOpen: false,
+      cart: [],
     };
+  },
+  mounted() {
+    this.cart = cartItemsStorage.getCartItemsList();
   },
   methods: {
     deleteItem(item) {
       itemsStorage.removeItem(item);
-      cartItemsStorage.removeItemFromCart(item)
+      cartItemsStorage.removeItemFromCart(item);
     },
-
     addItemToCart(item) {
       cartItemsStorage.addToCart(item);
     },
-
-    removeFromCart(item) {
-      itemsStorage.removeFromCart(item);
+    qtyMinus(item) {
+      if (item.Amount > 0) {
+        item.Amount--;
+      }
+    },
+    isItemAdded(item) {
+      return !!this.cart.find((i) => i.itemId === item.Id);
     },
   },
 };
@@ -105,7 +113,8 @@ export default {
   margin: 10px 0;
 }
 
-.item-body .cost {
+.item-body .cost,
+.del-box .cost {
   display: table-cell;
   background: green;
   padding: 2px 4px;
@@ -127,7 +136,6 @@ export default {
   align-items: baseline;
   margin: 22px 0;
 }
-
 
 .middle input.disabled {
   cursor: not-allowed;

@@ -29,18 +29,13 @@ export default {
         Id: 1,
         Name: "",
         Price: 0,
-        Amount: 1,
-        AddedToCart: false,
+        Amount: 1
       },
     };
   },
-  mounted() {},
   methods: {
     onSubmit() {
-      if(this.Item.Price < 0) {
-        alert('Please enter valid Price')
-      }
-      this.$emit("onSubmitForm", this.Item);
+      (this.Item.Price < 0) ? alert('Please enter valid Price') : this.$emit("onSubmitForm", this.Item)
     },
   },
 };

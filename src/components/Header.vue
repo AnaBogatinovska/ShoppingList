@@ -5,10 +5,11 @@
         <div class="inner-content">
           <div class="header-wrapper">
             <h1>SHOPPING LIST</h1>
-            <div>
+            <div style="position:relative">
               <span @click="isOpenCart = true" class="material-icons cart">
                 shopping_cart
               </span>
+              <span class="n-items">{{ cart.length }}</span>
             </div>
           </div>
         </div>
@@ -20,6 +21,7 @@
 
 <script>
 import ShoppingCart from "../components/ShoppingCart.vue";
+import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
   name: "Header",
@@ -28,12 +30,13 @@ export default {
   },
   data() {
     return {
-      listItems: [],
       isOpenCart: false,
+      cart: []
     };
   },
   mounted() {
-   
+   this.cart = cartItemsStorage.cartItems // cartItemsStorage.getCartItemsList()
+   console.log(this.cart)
   },
   methods: {
     closeCart() {
@@ -63,5 +66,15 @@ export default {
   border-radius: 5px;
   padding: 1px 6px;
   cursor: pointer;
+}
+.n-items {
+  position: absolute;
+    color: #fff;
+    background: red;
+    top: -7px;
+    right: -6px;
+    font-size: 12px;
+    padding: 1px 4px;
+    border-radius: 3px;
 }
 </style>

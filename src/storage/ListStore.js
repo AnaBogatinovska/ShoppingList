@@ -39,19 +39,6 @@ class Items {
     this.items.splice(idx, 1)
     this.setListItems()
   }
-
-  addToCartAndAmount(item, amount) { 
-    let idx = this.items.findIndex(i => i.Id === item.Id)
-    this.items[idx].Amount = amount
-    this.items[idx].AddedToCart = true;
-    this.setListItems()
-  }
-
-  removeFromCart(item){
-    let idx = this.items.findIndex(i => i.Id === item.Id)
-    this.items[idx].AddedToCart = false
-    this.setListItems()
-  }
 }
 
 export default new Items();
