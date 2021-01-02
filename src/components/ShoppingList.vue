@@ -3,7 +3,7 @@
     <div class="inner-content">
       <div class="box-container">
         <div class="box-body">
-          <div class="list-item" v-for="item in shoppingItems" :key="item.Id">
+          <div class="list-item" v-for="item in listItems" :key="item.Id">
             <div class="item-body" :class="{ added: isItemAdded(item) }">
               <div class="delete-item">
                 <span
@@ -58,12 +58,13 @@ export default {
   props: ["shoppingItems"],
   data() {
     return {
-      isDelBoxOpen: false,
       cart: [],
+      listItems: []
     };
   },
   mounted() {
     this.cart = cartItemsStorage.getCartItemsList();
+    this.listItems = itemsStorage.getListItems();
   },
   methods: {
     deleteItem(item) {
@@ -79,7 +80,7 @@ export default {
       }
     },
     isItemAdded(item) {
-      return !!this.cart.find((i) => i.itemId === item.Id);
+      return !!this.cart.find((i) => i.itemId === item.Id); 
     },
   },
 };

@@ -11,7 +11,8 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

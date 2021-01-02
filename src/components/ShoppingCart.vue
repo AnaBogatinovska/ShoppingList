@@ -60,7 +60,7 @@
             </div>
 
             <div>
-              <button class="c-btn" type="button" @click="$emit('cancelCart')">
+              <button class="c-btn" type="button" @click="closeCart">
                 Cancel
               </button>
               <button class="b-btn">Buy</button>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+// import Vue from 'vue'
 import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
@@ -83,7 +84,9 @@ export default {
     };
   },
   mounted() {
-    this.cartItems = cartItemsStorage.getCartItemsList();
+    this.cartItems = cartItemsStorage.getCartItemsList()  ;
+  
+    console.log( this.cartItems)
   },
   methods: {
     deleteItemFromCart(item) {
@@ -114,6 +117,9 @@ export default {
         item.qty--;
       }
     },
+    closeCart() {
+      this.$router.go(-1)
+    }
   },
 };
 </script>

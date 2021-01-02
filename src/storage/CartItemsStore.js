@@ -1,18 +1,22 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 class CartItems {
-  cartItems = [];
+  cartItems =[]
 
   getCartItemsList() {
-    if (localStorage.getItem("cartItemss") !== null) {
-      let result = JSON.parse(localStorage.getItem("cartItemss"));
-      Vue.set(this.cartItems, result)
+    if (localStorage.getItem("cartItems") !== null) {
+      let result= JSON.parse(localStorage.getItem("cartItems"));
+      console.log('result',result)
+      console.log('before carItems', this.cartItems)
+      Vue.set(this.cartItems, result);
+      console.log('after cartItems  ',this.cartItems)
+      
     }
     return this.cartItems;
   }
 
   setCartItemsList() {
-    localStorage.setItem("cartItemss", JSON.stringify(this.cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
   }
 
   addToCart(item) {
@@ -31,7 +35,7 @@ class CartItems {
 
   removeItemFromCart(item) {
     let idx = this.cartItems.findIndex((i) => i.Id === item.Id);
-    this.cartItems.splice(idx, 1)
+    this.cartItems.splice(idx, 1);
     this.setCartItemsList();
   }
 }

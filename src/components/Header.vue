@@ -1,47 +1,32 @@
 <template>
   <div>
     <header>
-      <div class="container">
-        <div class="inner-content">
           <div class="header-wrapper">
             <h1>SHOPPING LIST</h1>
-            <div style="position:relative">
-              <span @click="isOpenCart = true" class="material-icons cart">
+            <router-link :to="{ name: 'ShoppingCart' }" style="position:relative">
+              <span class="material-icons cart">
                 shopping_cart
               </span>
-              <span class="n-items">{{ cart.length }}</span>
-            </div>
+              <span class="n-items" v-if="cart">{{ cart.length }}</span>
+            </router-link>
           </div>
-        </div>
-      </div>
     </header>
-    <ShoppingCart v-if="isOpenCart" @cancelCart='closeCart'/>
   </div>
 </template>
 
 <script>
-import ShoppingCart from "../components/ShoppingCart.vue";
 import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
   name: "Header",
-  components: {
-    ShoppingCart,
-  },
   data() {
     return {
-      isOpenCart: false,
       cart: []
     };
   },
   mounted() {
-   this.cart = cartItemsStorage.cartItems // cartItemsStorage.getCartItemsList()
-   console.log(this.cart)
-  },
-  methods: {
-    closeCart() {
-      this.isOpenCart = false
-    }
+   this.cart = cartItemsStorage.getCartItemsList()
+   console.log('cart', this.cart)
   },
 };
 </script>

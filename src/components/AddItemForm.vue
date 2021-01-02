@@ -13,7 +13,7 @@
         <input class="item input" type="number" required v-model="Item.Price" />
       </div>
       <div class="btn-handlers">
-        <button type="button" class="cancel-btn" @click="$emit('cancelForm')">Cancel</button>
+        <button type="button" class="cancel-btn" @click="closeForm">Cancel</button>
         <button type="submit" class="ok-btn">OK</button>
       </div>
     </form>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import itemsStorage from "../storage/ListStore";
+
 export default {
   name: "AddItemForm",
   data() {
@@ -35,8 +37,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      (this.Item.Price < 0) ? alert('Please enter valid Price') : this.$emit("onSubmitForm", this.Item)
+      (this.Item.Price < 0) ? alert('Please enter valid Price') :  itemsStorage.pushItem(this.Item);
+      this.$router.go(-1)
     },
+      closeForm() {
+      this.$router.go(-1)
+    }
   },
 };
 </script>
