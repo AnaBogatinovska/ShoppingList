@@ -1,16 +1,20 @@
 import Vue from "vue";
 
 class CartItems {
-  cartItems =[]
+  cartItems = [];
 
   getCartItemsList() {
     if (localStorage.getItem("cartItems") !== null) {
-      let result= JSON.parse(localStorage.getItem("cartItems"));
-      console.log('result',result)
-      console.log('before carItems', this.cartItems)
-      Vue.set(this.cartItems, result);
-      console.log('after cartItems  ',this.cartItems)
-      
+      let result = JSON.parse(localStorage.getItem("cartItems"));
+      // console.log("result", result);
+      // console.log("before carItems", this.cartItems);
+
+      result.forEach((item, idx) => {
+        Vue.set(this.cartItems, idx, item);
+      });
+
+      // Vue.set(this.cartItems, result);
+      // console.log("after cartItems  ", this.cartItems);
     }
     return this.cartItems;
   }

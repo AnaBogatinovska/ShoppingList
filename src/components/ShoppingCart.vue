@@ -32,7 +32,7 @@
                   />
                 </div>
 
-                <span class="cost">{{ cartItem.item.Price }} ден.</span>
+                <span class="cost">{{ cartItem.item.Price }} den.</span>
                 <button
                   class="del-cart-item"
                   @click="deleteItemFromCart(cartItem.item)"
@@ -56,7 +56,7 @@
             "
           >
             <div class="total">
-              Total: <span>{{ sum() }} ден.</span>
+              Total: <span>{{ sum() }} den.</span>
             </div>
 
             <div>
@@ -73,7 +73,6 @@
 </template>
 
 <script>
-// import Vue from 'vue'
 import cartItemsStorage from "../storage/CartItemsStore";
 
 export default {
@@ -203,7 +202,7 @@ export default {
   background-image: linear-gradient(-180deg, #d82d2d 0%, #e29100 100%);
   border-radius: 5px;
   font-size: 14px;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 .del-cart-item {

@@ -8,14 +8,14 @@
               <div class="delete-item">
                 <span
                   class="material-icons del-item-icon"
-                  @click="deleteItem(item)"
+                  @click="isDeleteItemClicked(item)"
                 >
                   highlight_off
                 </span>
               </div>
               <h3>{{ item.Name }}</h3>
               <div class="middle">
-                <span class="cost">{{ item.Price }} ДЕН.</span>
+                <span class="cost">{{ item.Price }} DEN</span>
                 <div>
                   <input
                     type="button"
@@ -46,20 +46,30 @@
         </div>
       </div>
     </div>
+
+    <delete-item-dialog
+      v-if="itemToDelete"
+      :item="itemToDelete"
+      @cancel-delete="itemToDelete = null"
+      @delete-item="deleteItem(itemToDelete)"
+    />
   </div>
 </template>
 
 <script>
 import itemsStorage from "../storage/ListStore";
 import cartItemsStorage from "../storage/CartItemsStore";
+import DeleteItemDialog from "./DeleteItemDialog.vue";
 
 export default {
+  components: { DeleteItemDialog },
   name: "ShoppingList",
   props: ["shoppingItems"],
   data() {
     return {
       cart: [],
-      listItems: []
+      listItems: [],
+      itemToDelete: null,
     };
   },
   mounted() {
@@ -67,9 +77,13 @@ export default {
     this.listItems = itemsStorage.getListItems();
   },
   methods: {
+    isDeleteItemClicked(item) {
+      this.itemToDelete = item;
+    },
     deleteItem(item) {
       itemsStorage.removeItem(item);
       cartItemsStorage.removeItemFromCart(item);
+      this.itemToDelete = null
     },
     addItemToCart(item) {
       cartItemsStorage.addToCart(item);
@@ -80,7 +94,7 @@ export default {
       }
     },
     isItemAdded(item) {
-      return !!this.cart.find((i) => i.itemId === item.Id); 
+      return !!this.cart.find((i) => i.itemId === item.Id);
     },
   },
 };
@@ -128,7 +142,7 @@ export default {
   background-image: linear-gradient(-180deg, #d82d2d 0%, #e29100 100%);
   border-radius: 5px;
   font-size: 14px;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 .middle {
@@ -182,5 +196,8 @@ export default {
 .del-item-icon {
   font-size: 20px;
   cursor: pointer;
+}
+.del-item-icon:hover {
+  color: #d82d2d;
 }
 </style>
